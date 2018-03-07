@@ -1,6 +1,6 @@
 #!/bin/bash
 #视频推流path
-pushStreamPath=rtmp://101.132.99.221:8080/live
+pushStreamPath=rtmp://127.0.0.1:8080/live
 #视频拉流path
 pullStreamUrl=http://127.0.0.1
 #secret key
