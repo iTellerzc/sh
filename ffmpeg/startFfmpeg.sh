@@ -1,8 +1,10 @@
 #!/bin/bash
 #视频推流path
-pushStreamPath=rtmp://101.132.99.221:8080/live
+pushStreamPath=rtmp://127.0.0.1:8080/live
 #视频拉流path
-pullStreamUrl=http://101.132.99.221
+pullStreamUrl=http://127.0.0.1
+#logPath
+logPath=/zhuawawa_config/shell/sh-log
 #secret key
 sk=1234
 #宽度
@@ -20,5 +22,6 @@ sourceArrays=('192.168.0.108video1' '192.168.0.108video0' '192.168.0.110video0' 
  '192.168.8.100video1')
 for((i=0;i<${#arrayPorts[@]};i++))
 do
- ffmpeg -i $pushStreamPath/${sourceArrays[$i]} -f mpeg1video -b:v 600k -r 30 $pullStreamUrl:${arrayPorts[$i]}/$sk/$width/$height
+ echo 'copy '${sourceArrays[$i]}' stream'
+ nohup ffmpeg -i $pushStreamPath/${sourceArrays[$i]} -f mpeg1video -b:v 600k -r 30 $pullStreamUrl:${arrayPorts[$i]}/$sk/$width/$height >$logPath/ff-${sourceArrays[$i]}.out 2>&1 &
 done
